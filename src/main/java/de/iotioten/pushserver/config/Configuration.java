@@ -32,14 +32,29 @@ public interface Configuration extends Config{
 
 
     @DefaultValue("1awdc1234")
-    @Key("praefix")
+    @Key("aws_keyid")
     String awsKeyId();
 
 
 
     @DefaultValue("1awdc1234")
-    @Key("praefix")
+    @Key("aws_secretkey")
     String awsSecretKey();
+
+
+    @DefaultValue("")
+    @Key("algorithm_cert")
+    String algorithmCert();
+
+    @DefaultValue("")
+    @Key("public_key_file")
+    String publicKey();
+
+    @DefaultValue("")
+    @Key("private_key_file")
+    String privateKey();
+
+
 
 
     @DefaultValue("1")
@@ -50,6 +65,9 @@ public interface Configuration extends Config{
     @DefaultValue("true")
     @Key("usecert")
     boolean useCertificate();
+
+
+
 
 
 }

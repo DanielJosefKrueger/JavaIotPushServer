@@ -3,6 +3,7 @@ package de.iotioten.pushserver.pushing;
 import com.amazonaws.services.iot.client.AWSIotException;
 import com.amazonaws.services.iot.client.AWSIotMqttClient;
 import com.amazonaws.services.iot.client.AWSIotQos;
+import com.amazonaws.services.iot.client.sample.sampleUtil.SampleUtil;
 import de.iotioten.pushserver.config.Configuration;
 import de.iotioten.pushserver.config.ConfigurationLoader;
 import de.iotioten.pushserver.message.LoggingIotMessage;
@@ -28,8 +29,19 @@ public class PushService {
 
     private void pushWithCert(String topic, String message){
 
-
-
+        String clientEndpoint = configuration.praefix() + ".iot."+ configuration.awsRegion()+ ".amazonaws.com";       // replace <prefix> and <region> with your own
+        String clientId = configuration.clientId();                           // replace with your own client ID. Use unique client IDs for concurrent connections.
+        String certificateFile = configuration.certificate();
+        String privateKeyFile = configuration.privateKey();
+        SampleUtil.KeyStorePasswordPair pair = SampleUtil.getKeyStorePasswordPair(certificateFile, privateKeyFile);
+        AWSIotMqttClient client = new AWSIotMqttClient(clientEndpoint, clientId, pair.keyStore, pair.keyPassword);
+        try {
+            client.connect();
+            client.publish(new LoggingIotMessage(topic, AWSIotQos.valueOf(configuration.qos()), message));
+        } catch (AWSIotException e) {
+            //TODO Exception handling
+            e.printStackTrace();
+        }
     }
 
 

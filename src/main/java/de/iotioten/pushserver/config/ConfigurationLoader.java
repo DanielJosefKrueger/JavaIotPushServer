@@ -10,7 +10,9 @@ public class ConfigurationLoader {
 
 
     public ConfigurationLoader(){
-        ConfigFactory.setProperty("config", new File("config.properties").toURI().getRawPath());
+        String rawPath = new File("config.properties").toURI().getRawPath();
+        System.out.println(rawPath);
+        ConfigFactory.setProperty("config", rawPath);
     }
 
 
@@ -18,6 +20,9 @@ public class ConfigurationLoader {
     public Configuration loadConfig(){
 
         //todo propties ladne und reinstecken
+
+
+
             return ConfigCache.getOrCreate(Configuration.class);
         }
 
