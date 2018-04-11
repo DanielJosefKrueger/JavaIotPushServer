@@ -8,22 +8,19 @@ import java.io.File;
 public class ConfigurationLoader {
 
 
-
-    public ConfigurationLoader(){
+    public ConfigurationLoader() {
         String rawPath = new File("config.properties").toURI().getRawPath();
         System.out.println(rawPath);
         ConfigFactory.setProperty("config", rawPath);
     }
 
 
-
-    public Configuration loadConfig(){
+    public Configuration loadConfig() {
 
         //todo propties ladne und reinstecken
 
 
-
-            return ConfigCache.getOrCreate(Configuration.class);
-        }
+        return ConfigCache.getOrCreate(Configuration.class);
+    }
 
 }

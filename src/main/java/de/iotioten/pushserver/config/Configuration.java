@@ -3,10 +3,9 @@ package de.iotioten.pushserver.config;
 import org.aeonbits.owner.Config;
 
 
-
 @Config.HotReload
 @Config.Sources("file:${config}")
-public interface Configuration extends Config{
+public interface Configuration extends Config {
 
 
     @DefaultValue("")
@@ -24,17 +23,14 @@ public interface Configuration extends Config{
     String clientId();
 
 
-
     @DefaultValue("1awdc1234")
     @Key("praefix")
     String praefix();
 
 
-
     @DefaultValue("1awdc1234")
     @Key("aws_keyid")
     String awsKeyId();
-
 
 
     @DefaultValue("1awdc1234")
@@ -55,8 +51,6 @@ public interface Configuration extends Config{
     String privateKey();
 
 
-
-
     @DefaultValue("1")
     @Key("qos")
     int qos();
@@ -65,9 +59,6 @@ public interface Configuration extends Config{
     @DefaultValue("true")
     @Key("usecert")
     boolean useCertificate();
-
-
-
 
 
 }
