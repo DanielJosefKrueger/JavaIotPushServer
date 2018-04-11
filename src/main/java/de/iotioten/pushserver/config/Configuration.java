@@ -40,4 +40,16 @@ public interface Configuration extends Config{
     @DefaultValue("1awdc1234")
     @Key("praefix")
     String awsSecretKey();
+
+
+    @DefaultValue("1")
+    @Key("qos")
+    int qos();
+
+
+    @DefaultValue("true")
+    @Key("usecert")
+    boolean useCertificate();
+
+
 }

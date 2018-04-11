@@ -10,7 +10,7 @@ public class ConfigurationLoader {
 
 
     public ConfigurationLoader(){
-        ConfigFactory.setProperty("mainconfig", new File("config.properties").toURI().getRawPath());
+        ConfigFactory.setProperty("config", new File("config.properties").toURI().getRawPath());
     }
 
 
