@@ -16,19 +16,16 @@ public class LoggingIotMessage extends AWSIotMessage {
 
     @Override
     public void onSuccess() {
-        System.out.println(System.currentTimeMillis() + ": >>> " + getStringPayload());
         logger.info(System.currentTimeMillis() + ": >>> " + getStringPayload());
     }
 
     @Override
     public void onFailure() {
-        System.out.println(System.currentTimeMillis() + ": publish failed for " + getStringPayload());
         logger.info(System.currentTimeMillis() + ": publish failed for " + getStringPayload());
     }
 
     @Override
     public void onTimeout() {
-        System.out.println(System.currentTimeMillis() + ": publish timeout for " + getStringPayload());
         logger.info(System.currentTimeMillis() + ": publish timeout for " + getStringPayload());
     }
 

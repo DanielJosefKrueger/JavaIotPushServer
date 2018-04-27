@@ -1,7 +1,12 @@
 package de.iotioten.pushserver.rest;
 
 
+import de.iotioten.pushserver.message.LoggingIotMessage;
 import de.iotioten.pushserver.pushing.PushService;
+import de.iotioten.pushserver.receiving.DataStorage;
+import de.iotioten.pushserver.receiving.DataStorageImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -10,6 +15,20 @@ import javax.ws.rs.core.Response;
 public class RestResource {
 
     private static PushService pushService =  PushService.get();
+    private static DataStorage dataStorage = DataStorageImpl.getInstance();
+    private static final Logger logger = LogManager.getLogger(RestResource.class);
+
+
+    @GET
+    @Path("/receive")
+    public Response receiveMessages() {
+        String str = dataStorage.get();
+        if(str!=null){
+            return Response.status(200).entity(str).build();
+        }else{
+            return Response.status(404).build();
+        }
+    }
 
 
     @GET
@@ -20,14 +39,23 @@ public class RestResource {
         return Response.status(200).entity(result).build();
     }
 
+
     @POST
-    @Path("/{param}")
-    public Response post(@FormParam("topic") String topic, @FormParam("msg") String msg) {
+    @Path("/push")
+    public Response post(@FormParam("topic") String topic, @FormParam("payload") String msg) {
+        logger.trace("Received REST Request for pushing. payload: {}, topic: {} ", msg, topic);
         String result = "Postrequest: " + msg;
         pushService.push(topic, msg);
         return Response.status(200).entity(result).build();
     }
 
+
+    @POST
+    @Path("/config")
+    public Response postConfig( @FormParam("config") String config) {
+        logger.trace("Received change in config: {}", config);
+        return Response.status(200).entity("config changed").build();
+    }
 
 
 }
