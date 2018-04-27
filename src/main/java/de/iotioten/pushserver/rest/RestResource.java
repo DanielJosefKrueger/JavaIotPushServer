@@ -3,9 +3,7 @@ package de.iotioten.pushserver.rest;
 
 import de.iotioten.pushserver.pushing.PushService;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 @Path("/iot")
@@ -16,14 +14,20 @@ public class RestResource {
 
     @GET
     @Path("/{param}")
-    public Response printMessage(@PathParam("param") String msg) {
-
+    public Response get(@PathParam("param") String msg) {
         String result = "GetRequest: " + msg;
-
         pushService.push("test/test1", msg);
-
         return Response.status(200).entity(result).build();
-
     }
+
+    @POST
+    @Path("/{param}")
+    public Response post(@FormParam("topic") String topic, @FormParam("msg") String msg) {
+        String result = "Postrequest: " + msg;
+        pushService.push(topic, msg);
+        return Response.status(200).entity(result).build();
+    }
+
+
 
 }
