@@ -12,9 +12,6 @@ public class Start {
     private static final String CONFIG_FILE_LOGGING = "log4j2.xml";
 
     //TODO Dependency Injection?
-    //TODO POST
-    //TODO Queue für Publishes
-    //TODO Subscribe
     //TODO sample config
     //TODO how to
     //TODO doku
@@ -29,7 +26,7 @@ public class Start {
         SubscriptionService.get().initiateDataStoreSunscription();
 
         PushService pushService =  PushService.get();
-        pushService.push("iotioten/helloworld/test", "Hello World test 1234");
+        pushService.push("<id>/status", "Hello World test 1234");
         JettyServerThread jettyServerThread = new JettyServerThread();
         jettyServerThread.start();
     }

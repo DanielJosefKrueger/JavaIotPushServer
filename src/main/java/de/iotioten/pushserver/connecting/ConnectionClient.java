@@ -12,6 +12,7 @@ public class ConnectionClient {
     private static ConnectionClient instance;
     private final Configuration configuration;
     private final AWSIotMqttClient client;
+    private final ConnectionHistory connectionHistory = new ConnectionHistory();
 
 
 
@@ -45,6 +46,8 @@ public class ConnectionClient {
     }
 
     public void push(String topic, String message) throws AWSIotException {
+        connectionHistory.add(System.currentTimeMillis(), "PUBLISH on topic: \"" + topic+ "\" with payload: \"" + message + "\"");
+
         if(client.getConnectionStatus()== AWSIotConnectionStatus.DISCONNECTED){
             client.connect();
         }
@@ -53,6 +56,8 @@ public class ConnectionClient {
 
 
     public void subscribe(AWSIotTopic awsIotTopic) throws AWSIotException {
+        connectionHistory.add(System.currentTimeMillis(), "SUBSCRIBE on topic: \"" + awsIotTopic.getTopic()+ "\"");
+
         if(client.getConnectionStatus()== AWSIotConnectionStatus.DISCONNECTED){
             client.connect();
         }

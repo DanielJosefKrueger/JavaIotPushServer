@@ -1,6 +1,7 @@
 package de.iotioten.pushserver.rest;
 
 
+import de.iotioten.pushserver.connecting.ConnectionHistory;
 import de.iotioten.pushserver.message.LoggingIotMessage;
 import de.iotioten.pushserver.pushing.PushService;
 import de.iotioten.pushserver.receiving.DataStorage;
@@ -17,6 +18,7 @@ public class RestResource {
     private static PushService pushService =  PushService.get();
     private static DataStorage dataStorage = DataStorageImpl.getInstance();
     private static final Logger logger = LogManager.getLogger(RestResource.class);
+    private static final ConnectionHistory histy = new ConnectionHistory();
 
 
     @GET
@@ -57,5 +59,14 @@ public class RestResource {
         return Response.status(200).entity("config changed").build();
     }
 
-
+    @GET
+    @Path("/history")
+    public Response getHistory() {
+        logger.trace("GET HISTORY");
+        String answer = "<html><body><table align=\"left\" width=\"80%\">"
+                +"<tr align=\"left\"><th>Time</th><th>Event</th></tr>"
+                + histy.toHtml() +
+                "</table></body></html>";
+        return Response.status(200).entity(answer).build();
+    }
 }
