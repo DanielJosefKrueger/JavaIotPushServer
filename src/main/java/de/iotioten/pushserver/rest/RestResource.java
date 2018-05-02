@@ -1,6 +1,8 @@
 package de.iotioten.pushserver.rest;
 
 
+import de.iotioten.pushserver.config.Configuration;
+import de.iotioten.pushserver.config.ConfigurationLoader;
 import de.iotioten.pushserver.connecting.ConnectionHistory;
 import de.iotioten.pushserver.message.LoggingIotMessage;
 import de.iotioten.pushserver.pushing.PushService;
@@ -19,10 +21,16 @@ public class RestResource {
     private static DataStorage dataStorage = DataStorageImpl.getInstance();
     private static final Logger logger = LogManager.getLogger(RestResource.class);
     private static final ConnectionHistory histy = new ConnectionHistory();
+    private  Configuration configuration;
+
+
+    RestResource(){
+        configuration = new ConfigurationLoader().loadConfig();
+    }
 
 
     @GET
-    @Path("/receive")
+    @Path("/back")
     public Response receiveMessages() {
         String str = dataStorage.get();
         if(str!=null){
@@ -34,7 +42,7 @@ public class RestResource {
 
 
     @GET
-    @Path("/{param}")
+    @Path("/legacy/{param}")
     public Response get(@PathParam("param") String msg) {
         String result = "GetRequest: " + msg;
         pushService.push("test/test1", msg);
@@ -46,10 +54,32 @@ public class RestResource {
     @Path("/push")
     public Response post(@FormParam("topic") String topic, @FormParam("payload") String msg) {
         logger.trace("Received REST Request for pushing. payload: {}, topic: {} ", msg, topic);
-        String result = "Postrequest: " + msg;
-        pushService.push(topic, msg);
+        String result = "Push with payload: " + msg;
+        if(topic !=null){
+            pushService.push(topic, msg);
+        }else{
+            pushService.push(configuration.pushTopic(), msg);
+        }
+
         return Response.status(200).entity(result).build();
     }
+
+
+    @POST
+    @Path("/init")
+    public Response init(@FormParam("topic") String topic, @FormParam("payload") String msg) {
+        logger.trace("Received REST Request for Initiation. payload: {}, topic: {} ", msg, topic);
+        String result = "Initiation with: " + msg;
+        if(topic !=null){
+            pushService.push(topic, msg);
+        }else{
+            pushService.push(configuration.initTopic(), msg);
+        }
+        return Response.status(200).entity(result).build();
+    }
+
+
+
 
 
     @POST

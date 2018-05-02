@@ -29,6 +29,14 @@ public class PushService {
 
 
     public void push(String topic, String message) {
+        if(topic == null){
+            throw new IllegalArgumentException("Topic must not be null");
+        }
+
+        if(message == null){
+            message ="";
+        }
+
         try {
             client.push(topic, message);
         } catch (AWSIotException e) {

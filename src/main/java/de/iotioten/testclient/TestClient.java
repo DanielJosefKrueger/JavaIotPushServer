@@ -21,14 +21,28 @@ import java.util.Map;
 public class TestClient {
 
 
+    private static String EXAMPLE_JSON = "{\n" +
+            "    \"name\":\"John\",\n" +
+            "    \"age\":30,\n" +
+            "    \"cars\": [\n" +
+            "        { \"name\":\"Ford\", \"models\":[ \"Fiesta\", \"Focus\", \"Mustang\" ] },\n" +
+            "        { \"name\":\"BMW\", \"models\":[ \"320\", \"X3\", \"X5\" ] },\n" +
+            "        { \"name\":\"Fiat\", \"models\":[ \"500\", \"Panda\" ] }\n" +
+            "    ]\n" +
+            " } ";
+
+
+
+
+
     public static void main(String[] args) throws IOException {
-        String postURL = "http://localhost:8080/rest/iot/anything";
+        String postURL = "http://localhost:8080/rest/iot/push";
 
         HttpPost post = new HttpPost(postURL);
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("topic", "test/test2"));
-        params.add(new BasicNameValuePair("msg", "halloWastl"));
+        params.add(new BasicNameValuePair("payload", EXAMPLE_JSON));
 
         UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, "UTF-8");
         post.setEntity(ent);

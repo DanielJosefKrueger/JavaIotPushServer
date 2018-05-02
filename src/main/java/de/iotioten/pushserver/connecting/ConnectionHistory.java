@@ -31,7 +31,7 @@ public class ConnectionHistory {
             sb.append("<tr align=\"left\"><th>")
                     .append(formater.format(historyEntry.time))
                     .append("</th><th>")
-                    .append(historyEntry.msg)
+                    .append(historyEntry.msg.replaceAll("\n", "<br>"))
                     .append("</th></tr>");
         }
         return sb.toString();
