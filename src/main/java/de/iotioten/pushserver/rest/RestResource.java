@@ -4,7 +4,6 @@ package de.iotioten.pushserver.rest;
 import de.iotioten.pushserver.config.Configuration;
 import de.iotioten.pushserver.config.ConfigurationLoader;
 import de.iotioten.pushserver.connecting.ConnectionHistory;
-import de.iotioten.pushserver.message.LoggingIotMessage;
 import de.iotioten.pushserver.pushing.PushService;
 import de.iotioten.pushserver.receiving.DataStorage;
 import de.iotioten.pushserver.receiving.DataStorageImpl;
@@ -17,14 +16,14 @@ import javax.ws.rs.core.Response;
 @Path("/iot")
 public class RestResource {
 
-    private static PushService pushService =  PushService.get();
+    private static PushService pushService = PushService.get();
     private static DataStorage dataStorage = DataStorageImpl.getInstance();
     private static final Logger logger = LogManager.getLogger(RestResource.class);
     private static final ConnectionHistory histy = new ConnectionHistory();
-    private  Configuration configuration;
+    private Configuration configuration;
 
 
-    RestResource(){
+    RestResource() {
         configuration = new ConfigurationLoader().loadConfig();
     }
 
@@ -33,9 +32,9 @@ public class RestResource {
     @Path("/back")
     public Response receiveMessages() {
         String str = dataStorage.get();
-        if(str!=null){
+        if (str != null) {
             return Response.status(200).entity(str).build();
-        }else{
+        } else {
             return Response.status(404).build();
         }
     }
@@ -55,9 +54,9 @@ public class RestResource {
     public Response post(@FormParam("topic") String topic, @FormParam("payload") String msg) {
         logger.trace("Received REST Request for pushing. payload: {}, topic: {} ", msg, topic);
         String result = "Push with payload: " + msg;
-        if(topic !=null){
+        if (topic != null) {
             pushService.push(topic, msg);
-        }else{
+        } else {
             pushService.push(configuration.pushTopic(), msg);
         }
 
@@ -70,21 +69,18 @@ public class RestResource {
     public Response init(@FormParam("topic") String topic, @FormParam("payload") String msg) {
         logger.trace("Received REST Request for Initiation. payload: {}, topic: {} ", msg, topic);
         String result = "Initiation with: " + msg;
-        if(topic !=null){
+        if (topic != null) {
             pushService.push(topic, msg);
-        }else{
+        } else {
             pushService.push(configuration.initTopic(), msg);
         }
         return Response.status(200).entity(result).build();
     }
 
 
-
-
-
     @POST
     @Path("/config")
-    public Response postConfig( @FormParam("config") String config) {
+    public Response postConfig(@FormParam("config") String config) {
         logger.trace("Received change in config: {}", config);
         return Response.status(200).entity("config changed").build();
     }
@@ -94,7 +90,7 @@ public class RestResource {
     public Response getHistory() {
         logger.trace("GET HISTORY");
         String answer = "<html><body><table align=\"left\" width=\"80%\">"
-                +"<tr align=\"left\"><th>Time</th><th>Event</th></tr>"
+                + "<tr align=\"left\"><th>Time</th><th>Event</th></tr>"
                 + histy.toHtml() +
                 "</table></body></html>";
         return Response.status(200).entity(answer).build();

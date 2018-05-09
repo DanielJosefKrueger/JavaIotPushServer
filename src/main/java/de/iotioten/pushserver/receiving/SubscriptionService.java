@@ -5,7 +5,6 @@ import com.amazonaws.services.iot.client.AWSIotQos;
 import de.iotioten.pushserver.config.Configuration;
 import de.iotioten.pushserver.config.ConfigurationLoader;
 import de.iotioten.pushserver.connecting.ConnectionClient;
-import de.iotioten.pushserver.message.DataStorageSubscription;
 import de.iotioten.pushserver.message.RestCallSubscription;
 
 public class SubscriptionService {
@@ -16,8 +15,8 @@ public class SubscriptionService {
     private final String TOPIC = "backchannel";
 
 
-    public static synchronized SubscriptionService get(){
-        if(instance==null){
+    public static synchronized SubscriptionService get() {
+        if (instance == null) {
             instance = new SubscriptionService();
         }
         return instance;
@@ -29,9 +28,10 @@ public class SubscriptionService {
         configuration = new ConfigurationLoader().loadConfig();
     }
 
-    public void initiateDataStoreSunscription(){ try {
-         //   client.subscribe(new DataStorageSubscription(configuration.backTopic(), AWSIotQos.QOS1));
-        client.subscribe(new RestCallSubscription(configuration.backTopic(), AWSIotQos.QOS1));
+    public void initiateDataStoreSunscription() {
+        try {
+            //   client.subscribe(new DataStorageSubscription(configuration.backTopic(), AWSIotQos.QOS1));
+            client.subscribe(new RestCallSubscription(configuration.backTopic(), AWSIotQos.QOS1));
         } catch (AWSIotException e) {
             e.printStackTrace();
         }

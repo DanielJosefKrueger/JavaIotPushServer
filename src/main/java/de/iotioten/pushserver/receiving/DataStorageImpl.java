@@ -5,18 +5,19 @@ import java.util.LinkedList;
 public class DataStorageImpl implements DataStorage {
 
     private final LinkedList<String> fifoList = new LinkedList<>();
-    private static final DataStorageImpl instance = new  DataStorageImpl();
+    private static final DataStorageImpl instance = new DataStorageImpl();
 
 
-    private DataStorageImpl(){
+    private DataStorageImpl() {
         //prohibit initiating!
     }
 
     /**
      * Getter for Singleton Instance
+     *
      * @return the Singleton for this class
      */
-    public static DataStorageImpl getInstance(){
+    public static DataStorageImpl getInstance() {
         return instance;
     }
 
@@ -27,9 +28,9 @@ public class DataStorageImpl implements DataStorage {
 
     @Override
     public synchronized String get() {
-        if(!fifoList.isEmpty()){
+        if (!fifoList.isEmpty()) {
             return fifoList.removeFirst();
-        }else{
+        } else {
             return null;
         }
     }

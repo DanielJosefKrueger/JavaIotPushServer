@@ -15,18 +15,17 @@ public class ConnectionClient {
     private final ConnectionHistory connectionHistory = new ConnectionHistory();
 
 
-
-    private ConnectionClient(){
+    private ConnectionClient() {
         configuration = new ConfigurationLoader().loadConfig();
 
-        if(configuration.useCertificate()){
+        if (configuration.useCertificate()) {
             String clientEndpoint = configuration.praefix() + ".iot." + configuration.awsRegion() + ".amazonaws.com";       // replace <prefix> and <region> with your own
             String clientId = configuration.clientId();                           // replace with your own client ID. Use unique client IDs for concurrent connections.
             String certificateFile = configuration.certificate();
             String privateKeyFile = configuration.privateKey();
             SampleUtil.KeyStorePasswordPair pair = SampleUtil.getKeyStorePasswordPair(certificateFile, privateKeyFile);
             client = new AWSIotMqttClient(clientEndpoint, clientId, pair.keyStore, pair.keyPassword);
-        }else{
+        } else {
             String clientEndpoint = configuration.praefix() + ".iot." + configuration.awsRegion() + ".amazonaws.com";       // replace <prefix> and <region> with your own
             String clientId = configuration.clientId();                           // replace with your own client ID. Use unique client IDs for concurrent connections.
             // String certificateFile = "<certificate file>";                       // X.509 based certificate file
@@ -38,17 +37,17 @@ public class ConnectionClient {
 
     }
 
-    public static ConnectionClient getInstance(){
-        if(instance==null){
+    public static ConnectionClient getInstance() {
+        if (instance == null) {
             instance = new ConnectionClient();
         }
         return instance;
     }
 
     public void push(String topic, String message) throws AWSIotException {
-        connectionHistory.add(System.currentTimeMillis(), "PUBLISH on topic: \"" + topic+ "\" with payload: \"" + message + "\"");
+        connectionHistory.add(System.currentTimeMillis(), "PUBLISH on topic: \"" + topic + "\" with payload: \"" + message + "\"");
 
-        if(client.getConnectionStatus()== AWSIotConnectionStatus.DISCONNECTED){
+        if (client.getConnectionStatus() == AWSIotConnectionStatus.DISCONNECTED) {
             client.connect();
         }
         client.publish(new LoggingIotMessage(topic, AWSIotQos.valueOf(configuration.qos()), message));
@@ -56,14 +55,13 @@ public class ConnectionClient {
 
 
     public void subscribe(AWSIotTopic awsIotTopic) throws AWSIotException {
-        connectionHistory.add(System.currentTimeMillis(), "SUBSCRIBE on topic: \"" + awsIotTopic.getTopic()+ "\"");
+        connectionHistory.add(System.currentTimeMillis(), "SUBSCRIBE on topic: \"" + awsIotTopic.getTopic() + "\"");
 
-        if(client.getConnectionStatus()== AWSIotConnectionStatus.DISCONNECTED){
+        if (client.getConnectionStatus() == AWSIotConnectionStatus.DISCONNECTED) {
             client.connect();
         }
         client.subscribe(awsIotTopic);
     }
-
 
 
 }

@@ -1,21 +1,15 @@
 package de.iotioten.pushserver.pushing;
 
-import com.amazonaws.services.iot.client.AWSIotConnectionStatus;
 import com.amazonaws.services.iot.client.AWSIotException;
-import com.amazonaws.services.iot.client.AWSIotMqttClient;
-import com.amazonaws.services.iot.client.AWSIotQos;
-import com.amazonaws.services.iot.client.sample.sampleUtil.SampleUtil;
-import de.iotioten.pushserver.config.Configuration;
-import de.iotioten.pushserver.config.ConfigurationLoader;
 import de.iotioten.pushserver.connecting.ConnectionClient;
-import de.iotioten.pushserver.message.LoggingIotMessage;
 
 public class PushService {
 
-    private static  PushService instance = null;
+    private static PushService instance = null;
     private final ConnectionClient client;
-    public static synchronized PushService get(){
-        if(instance==null){
+
+    public static synchronized PushService get() {
+        if (instance == null) {
             instance = new PushService();
         }
         return instance;
@@ -29,12 +23,12 @@ public class PushService {
 
 
     public void push(String topic, String message) {
-        if(topic == null){
+        if (topic == null) {
             throw new IllegalArgumentException("Topic must not be null");
         }
 
-        if(message == null){
-            message ="";
+        if (message == null) {
+            message = "";
         }
 
         try {
@@ -43,7 +37,6 @@ public class PushService {
             e.printStackTrace();
         }
     }
-
 
 
 }

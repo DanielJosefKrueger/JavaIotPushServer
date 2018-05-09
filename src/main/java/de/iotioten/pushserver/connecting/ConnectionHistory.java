@@ -9,25 +9,25 @@ public class ConnectionHistory {
 
     private final static int SIZE = 2000;
     private final static FastDateFormat formater = FastDateFormat.getInstance("dd.MM.yyyy HH:mm:ss z", Locale.GERMANY);
-    private final static LinkedList<HistoryEntry> entries= new LinkedList<>();
+    private final static LinkedList<HistoryEntry> entries = new LinkedList<>();
 
 
-    public ConnectionHistory(){
+    public ConnectionHistory() {
     }
 
 
-    public void add(long time, String msg){
-        if(entries.size() >= SIZE){
+    public void add(long time, String msg) {
+        if (entries.size() >= SIZE) {
             entries.removeFirst();
         }
         entries.add(new HistoryEntry(time, msg));
     }
 
 
-    public String toHtml(){
+    public String toHtml() {
 
         StringBuilder sb = new StringBuilder();
-        for(HistoryEntry historyEntry:entries){
+        for (HistoryEntry historyEntry : entries) {
             sb.append("<tr align=\"left\"><th>")
                     .append(formater.format(historyEntry.time))
                     .append("</th><th>")
@@ -38,11 +38,9 @@ public class ConnectionHistory {
     }
 
 
-
-
     private class HistoryEntry {
-            private final long time;
-            private final String msg;
+        private final long time;
+        private final String msg;
 
         HistoryEntry(long time, String msg) {
             this.time = time;
