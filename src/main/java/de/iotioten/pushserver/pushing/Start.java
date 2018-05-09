@@ -12,7 +12,6 @@ public class Start {
     private static final String CONFIG_FILE_LOGGING = "log4j2.xml";
 
     //TODO Dependency Injection?
-    //TODO sample config
     //TODO how to
     //TODO doku
 

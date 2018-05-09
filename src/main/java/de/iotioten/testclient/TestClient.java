@@ -36,7 +36,7 @@ public class TestClient {
 
 
     public static void main(String[] args) throws IOException {
-        String postURL = "http://localhost:8080/rest/iot/push";
+        String postURL = "http://localhost:8080/iot/push";
 
         HttpPost post = new HttpPost(postURL);
 

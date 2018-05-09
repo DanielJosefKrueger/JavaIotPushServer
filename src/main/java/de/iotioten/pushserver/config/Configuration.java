@@ -73,4 +73,8 @@ public interface Configuration extends Config {
     @Key("backchannel_topic")
     String backTopic();
 
+    @DefaultValue("myProject/backdefault")
+    @Key("backchannel_url")
+    String backchannelUrl();
+
 }

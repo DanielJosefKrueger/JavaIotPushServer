@@ -23,7 +23,7 @@ public class DataStorageSubscription extends AWSIotTopic {
 
     @Override
     public void onMessage(AWSIotMessage message) {
-        String payload = message.getStringPayload();
+        final String payload = message.getStringPayload();
         connectionHistory.add(System.currentTimeMillis(), "Received Message on topic: \""+topic + "\" with payload: \"" + payload+"\"");
         logger.trace("Received Message on topic: {} with payload {}", topic, payload);
         dataStorage.add(payload);
