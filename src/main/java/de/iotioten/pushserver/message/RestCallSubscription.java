@@ -10,16 +10,22 @@ import de.iotioten.pushserver.config.ConfigurationLoader;
 import de.iotioten.pushserver.connecting.ConnectionHistory;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.StringWriter;
+
+import static org.apache.http.entity.ContentType.APPLICATION_FORM_URLENCODED;
+import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
 public class RestCallSubscription extends AWSIotTopic {
 
@@ -41,21 +47,9 @@ public class RestCallSubscription extends AWSIotTopic {
             final String payload = message.getStringPayload();
             connectionHistory.add(System.currentTimeMillis(), "Received Message on topic: \"" + topic + "\" with payload: \"" + payload + "\"");
             logger.error("Received Message on topic: {} with payload {}", topic, payload);
-
-            String postURL = configuration.backchannelUrl();
-            HttpPost post = new HttpPost(postURL);
-
-
-         //   String entity = "{\"topic\":\"" + message.getTopic() + "\",\"payload\":\"" + message.getStringPayload() + "\"}";
+         // String entity = "{\"topic\":\"" + message.getTopic() + "\",\"payload\":\"" + message.getStringPayload() + "\"}";
             String entity = messageToJson(message);
-            post.setEntity(new StringEntity(entity));
-            HttpClient client = new DefaultHttpClient(); //deprecation for builder. but will do for poc //TODO replace with builder
-            //HttpResponse responsePOST = client.execute(post); //not used yet, could be used for assuring the successful transport or something like that
-            //String response = EntityUtils.toString(responsePOST.getEntity());
-            //System.out.println(response); //TODO remove
-            //logger.error("POST REQUEST mit {}", response); //TODO remove
-            System.out.println(entity);
-
+            sendPost2(entity);
         } catch (IOException e) {
             logger.error("Error while Http-Post for backchannel.", e);
         }
@@ -77,4 +71,25 @@ public class RestCallSubscription extends AWSIotTopic {
        }
        return null;
     }
+
+
+    public void sendPost2(String entity){
+        try {
+            HttpClient httpClient = HttpClientBuilder.create().build();
+            String postURL = configuration.backchannelUrl();
+            HttpPost post = new HttpPost(postURL);
+            StringEntity input = new StringEntity(entity, APPLICATION_JSON);
+            post.setEntity(input);
+            HttpResponse response = httpClient.execute(post);
+            if(response.getStatusLine().getStatusCode()!=200){
+                logger.error("Error while pushing informationen to REST API of UIC. RequestEntity was: {}, Answer was: {}", input.toString(),EntityUtils.toString(response.getEntity()) );
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 }

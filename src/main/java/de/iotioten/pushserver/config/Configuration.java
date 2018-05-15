@@ -73,7 +73,7 @@ public interface Configuration extends Config {
     @Key("backchannel_topic")
     String backTopic();
 
-    @DefaultValue("http://localhost:8081/backchannel")
+    @DefaultValue("http://localhost:8081/backchannel/")
     @Key("backchannel_url")
     String backchannelUrl();
 
