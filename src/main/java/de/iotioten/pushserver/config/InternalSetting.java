@@ -1,5 +1,6 @@
 package de.iotioten.pushserver.config;
 
+import de.iotioten.pushserver.exceptions.NoInitiationException;
 import de.iotioten.pushserver.rest.RestResource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,9 +11,9 @@ public class InternalSetting {
     private static String uic_id;
 
 
-    public static String getUic_id() {
+    public static String getUic_id() throws NoInitiationException {
         if(uic_id==null){
-            throw new IllegalStateException("Not initialized yet!");
+            throw new NoInitiationException("Not initialized yet!");
         }
         return uic_id;
     }
