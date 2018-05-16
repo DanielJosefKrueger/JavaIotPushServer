@@ -63,15 +63,15 @@ public interface Configuration extends Config {
     boolean useCertificate();
 
 
-    @DefaultValue("myProject/pushdefault")
+    @DefaultValue("myProject/{uicid}/pushdefault")
     @Key("push_topic")
     String pushTopic();
 
-    @DefaultValue("myProject/initdefault")
+    @DefaultValue("myProject/{uicid}/initdefault")
     @Key("init_topic")
     String initTopic();
 
-    @DefaultValue("myProject/backdefault")
+    @DefaultValue("myProject/{uicid}/backdefault")
     @Key("backchannel_topic")
     String backTopic();
 

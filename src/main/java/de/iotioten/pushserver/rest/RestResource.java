@@ -3,6 +3,7 @@ package de.iotioten.pushserver.rest;
 
 import de.iotioten.pushserver.config.Configuration;
 import de.iotioten.pushserver.config.ConfigurationLoader;
+import de.iotioten.pushserver.config.InternalSetting;
 import de.iotioten.pushserver.connecting.ConnectionHistory;
 import de.iotioten.pushserver.pushing.PushService;
 import de.iotioten.pushserver.receiving.DataStorage;
@@ -46,9 +47,18 @@ public class RestResource {
     @GET
     @Path("/legacy/{param}")
     public Response get(@PathParam("param") String msg) {
-        String result = "GetRequest: " + msg;
-        pushService.push("test/test1", msg);
-        return Response.status(200).entity(result).build();
+        try{
+            String result = "GetRequest: " + msg;
+            String topic = configuration.pushTopic().replaceAll("\\{uicid}", InternalSetting.getUic_id());
+            pushService.push(topic, msg);
+            return Response.status(200).entity(result).build();
+        }catch(Exception e){
+            logger.error("An Exception was thrown while processing PUSh Request: " , e);
+            return Response.status(500).entity("An Exception was thrown while processing PUSh Request").build();
+        }
+
+
+
     }
 
 
@@ -69,14 +79,10 @@ public class RestResource {
 
     @POST
     @Path("/init")
-    public Response init(@FormParam("topic") String topic, @FormParam("payload") String msg) {
-        logger.trace("Received REST Request for Initiation. payload: {}, topic: {} ", msg, topic);
-        String result = "Initiation with: " + msg;
-        if (topic != null) {
-            pushService.push(topic, msg);
-        } else {
-            pushService.push(configuration.initTopic(), msg);
-        }
+    public Response init( @FormParam("uic_id") String uic_id) {
+        logger.error("Received REST Request for Initiation. uic_id: {} ", uic_id);
+        String result = "Initiation with: " + uic_id;
+        InternalSetting.setUic_id(uic_id);
         return Response.status(200).entity(result).build();
     }
 
