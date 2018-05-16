@@ -13,6 +13,9 @@ import org.apache.logging.log4j.Logger;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
+/**
+ *  The JAX-RS Resource that handles the REST API calls
+ */
 @Path("/iot")
 public class RestResource {
 

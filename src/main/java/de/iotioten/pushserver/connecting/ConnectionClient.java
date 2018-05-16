@@ -6,6 +6,9 @@ import de.iotioten.pushserver.config.Configuration;
 import de.iotioten.pushserver.config.ConfigurationLoader;
 import de.iotioten.pushserver.message.LoggingIotMessage;
 
+/**
+ * This class handles the connection to AWS using the official AWS libraries
+ */
 public class ConnectionClient {
 
 

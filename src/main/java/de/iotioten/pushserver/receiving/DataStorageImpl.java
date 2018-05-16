@@ -2,6 +2,10 @@ package de.iotioten.pushserver.receiving;
 
 import java.util.LinkedList;
 
+/**
+ * unused
+ */
+
 public class DataStorageImpl implements DataStorage {
 
     private final LinkedList<String> fifoList = new LinkedList<>();

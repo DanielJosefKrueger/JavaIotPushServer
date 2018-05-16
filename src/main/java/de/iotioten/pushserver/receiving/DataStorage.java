@@ -1,5 +1,8 @@
 package de.iotioten.pushserver.receiving;
 
+/**
+ * unused
+ */
 public interface DataStorage {
 
 

@@ -27,6 +27,10 @@ import java.io.StringWriter;
 import static org.apache.http.entity.ContentType.APPLICATION_FORM_URLENCODED;
 import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
+
+/**
+ * Extension of the {@link AWSIotTopic} that stores the events in the {@link ConnectionHistory} and sends HTTP POST calls with the data
+ */
 public class RestCallSubscription extends AWSIotTopic {
 
     private static final Logger logger = LogManager.getLogger(RestCallSubscription.class);
@@ -49,12 +53,18 @@ public class RestCallSubscription extends AWSIotTopic {
             logger.error("Received Message on topic: {} with payload {}", topic, payload);
          // String entity = "{\"topic\":\"" + message.getTopic() + "\",\"payload\":\"" + message.getStringPayload() + "\"}";
             String entity = messageToJson(message);
-            sendPost2(entity);
+            sendPost(entity);
         } catch (IOException e) {
             logger.error("Error while Http-Post for backchannel.", e);
         }
     }
 
+    /**
+     * Encodes the payload and topic of a MQTT Message as JSON
+     * @param message the {@link AWSIotMessage} to be parsed as JSON
+     * @return A String representation in JSON form
+     * @throws IOException
+     */
     private String messageToJson(AWSIotMessage message) throws IOException {
 
        try( StringWriter stringWriter = new StringWriter();
@@ -73,7 +83,11 @@ public class RestCallSubscription extends AWSIotTopic {
     }
 
 
-    public void sendPost2(String entity){
+    /**
+     * Sends a POST Call with the given JSON String
+     * @param entity the JSON String to be send
+     */
+    public void sendPost(String entity){
         try {
             HttpClient httpClient = HttpClientBuilder.create().build();
             String postURL = configuration.backchannelUrl();

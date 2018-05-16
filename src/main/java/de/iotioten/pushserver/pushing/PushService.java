@@ -3,6 +3,9 @@ package de.iotioten.pushserver.pushing;
 import com.amazonaws.services.iot.client.AWSIotException;
 import de.iotioten.pushserver.connecting.ConnectionClient;
 
+/**
+ * Utility class for pushing MQTT Messages to AWS
+ */
 public class PushService {
 
     private static PushService instance = null;
@@ -20,13 +23,10 @@ public class PushService {
     private PushService() {
         this.client = ConnectionClient.getInstance();
     }
-
-
     public void push(String topic, String message) {
         if (topic == null) {
             throw new IllegalArgumentException("Topic must not be null");
         }
-
         if (message == null) {
             message = "";
         }
@@ -37,7 +37,5 @@ public class PushService {
             e.printStackTrace();
         }
     }
-
-
 }
 

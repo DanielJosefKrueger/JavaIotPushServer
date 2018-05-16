@@ -2,7 +2,9 @@ package de.iotioten.pushserver.config;
 
 import org.aeonbits.owner.Config;
 
-
+/**
+ * Aeonbitsowner configuration for the Server
+ */
 @Config.HotReload
 @Config.Sources("file:${config}")
 public interface Configuration extends Config {

@@ -5,6 +5,9 @@ import com.amazonaws.services.iot.client.AWSIotQos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Basically the same as {@link AWSIotMessage} except that it logs the events
+ */
 public class LoggingIotMessage extends AWSIotMessage {
 
 

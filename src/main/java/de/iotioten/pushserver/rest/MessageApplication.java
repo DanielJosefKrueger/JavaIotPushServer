@@ -4,7 +4,9 @@ import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
-
+/**
+ * Application class for the Jetty server
+ */
 public class MessageApplication extends Application {
     private Set<Object> singletons = new HashSet<Object>();
 

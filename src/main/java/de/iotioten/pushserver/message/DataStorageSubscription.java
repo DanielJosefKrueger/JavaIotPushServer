@@ -9,6 +9,9 @@ import de.iotioten.pushserver.receiving.DataStorageImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * unused
+ */
 public class DataStorageSubscription extends AWSIotTopic {
 
     private static final Logger logger = LogManager.getLogger(DataStorageSubscription.class);

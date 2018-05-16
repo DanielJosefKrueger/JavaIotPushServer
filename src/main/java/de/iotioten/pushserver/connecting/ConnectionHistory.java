@@ -5,6 +5,9 @@ import org.apache.logging.log4j.core.util.datetime.FastDateFormat;
 import java.util.LinkedList;
 import java.util.Locale;
 
+/**
+ * Basically a List of Events that can be printed as HTML
+ */
 public class ConnectionHistory {
 
     private final static int SIZE = 2000;

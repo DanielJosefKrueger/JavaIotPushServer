@@ -18,6 +18,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * TestClient for performing HTTP Requests for debugging the REST API
+ */
 public class TestClient {
 
 

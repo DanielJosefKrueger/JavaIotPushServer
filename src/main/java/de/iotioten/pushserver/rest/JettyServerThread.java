@@ -5,6 +5,9 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
 
+/**
+ * Thread for the Jetty Server that is handling the REST API
+ */
 public class JettyServerThread extends Thread {
 
 
