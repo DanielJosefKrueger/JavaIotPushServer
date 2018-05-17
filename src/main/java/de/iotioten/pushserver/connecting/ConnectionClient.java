@@ -17,7 +17,9 @@ public class ConnectionClient {
     private final AWSIotMqttClient client;
     private final ConnectionHistory connectionHistory = new ConnectionHistory();
 
-
+    /**
+     * priovate to prohibit constructor call from outside (singleton)
+     */
     private ConnectionClient() {
         configuration = new ConfigurationLoader().loadConfig();
 
@@ -40,6 +42,10 @@ public class ConnectionClient {
 
     }
 
+    /**
+     * Getter for the singleton instance
+     * @return a singleton of this class
+     */
     public static ConnectionClient getInstance() {
         if (instance == null) {
             instance = new ConnectionClient();
@@ -47,6 +53,12 @@ public class ConnectionClient {
         return instance;
     }
 
+    /**
+     * Pushes a given message on a given payload
+     * @param topic the topic on which the message will be published
+     * @param message the message to be pubslihed
+     * @throws AWSIotException thrown if any exception occurred in the process
+     */
     public void push(String topic, String message) throws AWSIotException {
         connectionHistory.add(System.currentTimeMillis(), "PUBLISH on topic: \"" + topic + "\" with payload: \"" + message + "\"");
 
@@ -57,6 +69,11 @@ public class ConnectionClient {
     }
 
 
+    /**
+     * Subnscribes on the given topic. The messages that are published on this topic will trigger the backchannel function.
+     * @param awsIotTopic the topic to be subscribes on
+     * @throws AWSIotException thrown if any exception occurred in the process
+     */
     public void subscribe(AWSIotTopic awsIotTopic) throws AWSIotException {
         connectionHistory.add(System.currentTimeMillis(), "SUBSCRIBE on topic: \"" + awsIotTopic.getTopic() + "\"");
 

@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * unused
+ * unused, marked for deletion
  */
 public class DataStorageSubscription extends AWSIotTopic {
 
