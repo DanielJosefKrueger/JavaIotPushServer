@@ -53,6 +53,13 @@ public interface Configuration extends Config {
     String privateKey();
 
 
+    @Key("port_uic")
+    int portUIC();
+
+    @Key("port_uas")
+    int portUAS();
+
+
     @DefaultValue("1")
     @Key("qos")
     int qos();

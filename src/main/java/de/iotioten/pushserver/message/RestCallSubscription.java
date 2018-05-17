@@ -90,7 +90,9 @@ public class RestCallSubscription extends AWSIotTopic {
     public void sendPost(String entity){
         try {
             HttpClient httpClient = HttpClientBuilder.create().build();
-            String postURL = configuration.backchannelUrl();
+            //String postURL = configuration.backchannelUrl();
+            String postURL = "localhost:" + configuration.portUIC() + "/backchannel";
+
             HttpPost post = new HttpPost(postURL);
             StringEntity input = new StringEntity(entity, APPLICATION_JSON);
             post.setEntity(input);

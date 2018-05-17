@@ -20,11 +20,12 @@ import javax.ws.rs.core.Response;
 @Path("/iot")
 public class RestResource {
 
-    private static PushService pushService = PushService.get();
-    private static DataStorage dataStorage = DataStorageImpl.getInstance();
+    private static final PushService pushService = PushService.get();
+    private static final DataStorage dataStorage = DataStorageImpl.getInstance();
     private static final Logger logger = LogManager.getLogger(RestResource.class);
     private static final ConnectionHistory histy = new ConnectionHistory();
-    private Configuration configuration;
+
+    private final Configuration configuration;
 
 
     RestResource() {
@@ -64,16 +65,21 @@ public class RestResource {
 
     @POST
     @Path("/push")
-    public Response post(@FormParam("topic") String topic, @FormParam("payload") String msg) {
-        logger.trace("Received REST Request for pushing. payload: {}, topic: {} ", msg, topic);
-        String result = "Push with payload: " + msg;
-        if (topic != null) {
+    public Response post(String msg) {
+        try{
+            logger.trace("Received REST Request for pushing. payload: {}", msg);
+            String result = "Push with payload: " + msg;
+            String topic = configuration.pushTopic().replaceAll("\\{uicid}", InternalSetting.getUic_id());
             pushService.push(topic, msg);
-        } else {
-            pushService.push(configuration.pushTopic(), msg);
+            pushService.push(topic, msg);
+            return Response.status(200).entity(result).build();
+        }catch(Exception e){
+            e.printStackTrace();
+            return Response.status(500).entity("An Exception was thrown while processing PUSh Request").build();
         }
 
-        return Response.status(200).entity(result).build();
+
+
     }
 
 
