@@ -52,7 +52,7 @@ public class RestResource {
     public Response get(@PathParam("param") String msg) {
         try{
             String result = "GetRequest: " + msg;
-            String topic = configuration.pushTopic().replaceAll("\\{uicid}", InternalSetting.getUic_id());
+            String topic = configuration.pushTopic().replaceAll("\\{uicid}", InternalSetting.getSerialid());
             pushService.push(topic, msg);
             return Response.status(200).entity(result).build();
         }catch(Exception e){
@@ -71,7 +71,7 @@ public class RestResource {
         try{
             logger.trace("Received REST Request for pushing. payload: {}", msg);
             String result = "Push with payload: " + msg;
-            String topic = configuration.pushTopic().replaceAll("\\{uicid}", InternalSetting.getUic_id());
+            String topic = configuration.pushTopic().replaceAll("\\{serialid}", InternalSetting.getSerialid());
             pushService.push(topic, msg);
             pushService.push(topic, msg);
             return Response.status(200).entity(result).build();
@@ -90,7 +90,7 @@ public class RestResource {
     public Response init( @FormParam("serialid") String serialid,@FormParam("edms") String edms) {
         logger.error("Received REST Request for Initiation. serialid: {} and edms: {}", serialid, edms);
         String result = "Initiation with: " + serialid;
-        InternalSetting.setUic_id(serialid); //important must be set before pushing
+        InternalSetting.setSerialid(serialid); //important must be set before pushing
         pushService.push(configuration.initTopic().replaceAll("\\{serialid}", serialid), edms);
         return Response.status(200).entity(result).build();
     }

@@ -70,20 +70,17 @@ public interface Configuration extends Config {
     boolean useCertificate();
 
 
-    @DefaultValue("myProject/{uicid}/pushdefault")
+    @DefaultValue("myProject/{serialid}/pushdefault")
     @Key("push_topic")
     String pushTopic();
 
-    @DefaultValue("myProject/{uicid}/initdefault")
+    @DefaultValue("myProject/{serialid}/initdefault")
     @Key("init_topic")
     String initTopic();
 
-    @DefaultValue("myProject/{uicid}/backdefault")
+    @DefaultValue("myProject/{serialid}/backdefault")
     @Key("backchannel_topic")
     String backTopic();
 
-    @DefaultValue("http://localhost:8081/backchannel/")
-    @Key("backchannel_url")
-    String backchannelUrl();
 
 }
