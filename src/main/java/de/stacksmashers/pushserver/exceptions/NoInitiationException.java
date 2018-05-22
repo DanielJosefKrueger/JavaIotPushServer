@@ -1,4 +1,4 @@
-package de.iotioten.pushserver.exceptions;
+package de.stacksmashers.pushserver.exceptions;
 
 
 /**

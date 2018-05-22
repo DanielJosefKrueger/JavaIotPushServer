@@ -1,10 +1,10 @@
-package de.iotioten.pushserver.connecting;
+package de.stacksmashers.pushserver.connecting;
 
 import com.amazonaws.services.iot.client.*;
 import com.amazonaws.services.iot.client.sample.sampleUtil.SampleUtil;
-import de.iotioten.pushserver.config.Configuration;
-import de.iotioten.pushserver.config.ConfigurationLoader;
-import de.iotioten.pushserver.message.LoggingIotMessage;
+import de.stacksmashers.pushserver.config.Configuration;
+import de.stacksmashers.pushserver.config.ConfigurationLoader;
+import de.stacksmashers.pushserver.message.LoggingIotMessage;
 
 /**
  * This class handles the connection to AWS using the official AWS libraries

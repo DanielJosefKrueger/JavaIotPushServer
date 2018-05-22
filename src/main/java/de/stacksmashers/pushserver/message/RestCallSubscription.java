@@ -1,21 +1,17 @@
-package de.iotioten.pushserver.message;
+package de.stacksmashers.pushserver.message;
 
 import com.amazonaws.services.iot.client.AWSIotMessage;
 import com.amazonaws.services.iot.client.AWSIotQos;
 import com.amazonaws.services.iot.client.AWSIotTopic;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import de.iotioten.pushserver.config.Configuration;
-import de.iotioten.pushserver.config.ConfigurationLoader;
-import de.iotioten.pushserver.connecting.ConnectionHistory;
-import jdk.nashorn.internal.parser.JSONParser;
+import de.stacksmashers.pushserver.config.Configuration;
+import de.stacksmashers.pushserver.config.ConfigurationLoader;
+import de.stacksmashers.pushserver.connecting.ConnectionHistory;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +20,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import static org.apache.http.entity.ContentType.APPLICATION_FORM_URLENCODED;
 import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
 

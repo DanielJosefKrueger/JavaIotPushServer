@@ -21,7 +21,7 @@
 
 
     <Loggers>
-        <Logger name="de.iotioten" level="info">
+        <Logger name="de.stacksmashers" level="info">
             <AppenderRef ref="CONSOLE"/>
         </Logger>
         <Root level="trace">

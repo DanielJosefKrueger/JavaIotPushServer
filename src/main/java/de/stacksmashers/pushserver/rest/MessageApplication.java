@@ -1,4 +1,4 @@
-package de.iotioten.pushserver.rest;
+package de.stacksmashers.pushserver.rest;
 
 import javax.ws.rs.core.Application;
 import java.util.HashSet;

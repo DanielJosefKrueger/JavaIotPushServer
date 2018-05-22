@@ -1,13 +1,15 @@
-package de.iotioten.pushserver.rest;
+package de.stacksmashers.pushserver.rest;
 
 
-import de.iotioten.pushserver.config.Configuration;
-import de.iotioten.pushserver.config.ConfigurationLoader;
-import de.iotioten.pushserver.config.InternalSetting;
-import de.iotioten.pushserver.connecting.ConnectionHistory;
-import de.iotioten.pushserver.pushing.PushService;
-import de.iotioten.pushserver.receiving.DataStorage;
-import de.iotioten.pushserver.receiving.DataStorageImpl;
+import de.stacksmashers.pushserver.config.Configuration;
+import de.stacksmashers.pushserver.config.ConfigurationLoader;
+import de.stacksmashers.pushserver.config.InternalSetting;
+import de.stacksmashers.pushserver.connecting.ConnectionHistory;
+import de.stacksmashers.pushserver.pushing.PushService;
+import de.stacksmashers.pushserver.receiving.DataStorage;
+import de.stacksmashers.pushserver.receiving.DataStorageImpl;
+
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -85,10 +87,11 @@ public class RestResource {
 
     @POST
     @Path("/init")
-    public Response init( @FormParam("uic_id") String uic_id) {
-        logger.error("Received REST Request for Initiation. uic_id: {} ", uic_id);
-        String result = "Initiation with: " + uic_id;
-        InternalSetting.setUic_id(uic_id);
+    public Response init( @FormParam("serialid") String serialid,@FormParam("edms") String edms) {
+        logger.error("Received REST Request for Initiation. serialid: {} and edms: {}", serialid, edms);
+        String result = "Initiation with: " + serialid;
+        InternalSetting.setUic_id(serialid); //important must be set before pushing
+        pushService.push(configuration.initTopic().replaceAll("\\{serialid}", serialid), edms);
         return Response.status(200).entity(result).build();
     }
 

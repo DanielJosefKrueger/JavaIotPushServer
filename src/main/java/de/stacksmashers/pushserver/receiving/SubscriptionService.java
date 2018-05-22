@@ -1,11 +1,11 @@
-package de.iotioten.pushserver.receiving;
+package de.stacksmashers.pushserver.receiving;
 
 import com.amazonaws.services.iot.client.AWSIotException;
 import com.amazonaws.services.iot.client.AWSIotQos;
-import de.iotioten.pushserver.config.Configuration;
-import de.iotioten.pushserver.config.ConfigurationLoader;
-import de.iotioten.pushserver.connecting.ConnectionClient;
-import de.iotioten.pushserver.message.RestCallSubscription;
+import de.stacksmashers.pushserver.config.Configuration;
+import de.stacksmashers.pushserver.config.ConfigurationLoader;
+import de.stacksmashers.pushserver.connecting.ConnectionClient;
+import de.stacksmashers.pushserver.message.RestCallSubscription;
 
 
 /**

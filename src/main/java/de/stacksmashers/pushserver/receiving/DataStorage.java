@@ -1,4 +1,4 @@
-package de.iotioten.pushserver.receiving;
+package de.stacksmashers.pushserver.receiving;
 
 /**
  * unused

@@ -1,7 +1,6 @@
-package de.iotioten.pushserver.config;
+package de.stacksmashers.pushserver.config;
 
-import de.iotioten.pushserver.exceptions.NoInitiationException;
-import de.iotioten.pushserver.rest.RestResource;
+import de.stacksmashers.pushserver.exceptions.NoInitiationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

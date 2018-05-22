@@ -1,4 +1,4 @@
-package de.iotioten.pushserver.connecting;
+package de.stacksmashers.pushserver.connecting;
 
 import org.apache.logging.log4j.core.util.datetime.FastDateFormat;
 

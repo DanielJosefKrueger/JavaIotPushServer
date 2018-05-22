@@ -1,8 +1,7 @@
-package de.iotioten.pushserver.pushing;
+package de.stacksmashers.pushserver.pushing;
 
 import com.amazonaws.services.iot.client.AWSIotException;
-import de.iotioten.pushserver.connecting.ConnectionClient;
-import de.iotioten.pushserver.message.DataStorageSubscription;
+import de.stacksmashers.pushserver.connecting.ConnectionClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

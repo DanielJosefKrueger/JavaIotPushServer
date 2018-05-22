@@ -1,4 +1,4 @@
-package de.iotioten.pushserver.message;
+package de.stacksmashers.pushserver.message;
 
 import com.amazonaws.services.iot.client.AWSIotMessage;
 import com.amazonaws.services.iot.client.AWSIotQos;

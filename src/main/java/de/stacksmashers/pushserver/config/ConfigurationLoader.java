@@ -1,4 +1,4 @@
-package de.iotioten.pushserver.config;
+package de.stacksmashers.pushserver.config;
 
 import org.aeonbits.owner.ConfigCache;
 import org.aeonbits.owner.ConfigFactory;

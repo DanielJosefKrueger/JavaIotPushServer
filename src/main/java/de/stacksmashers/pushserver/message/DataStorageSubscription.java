@@ -1,11 +1,11 @@
-package de.iotioten.pushserver.message;
+package de.stacksmashers.pushserver.message;
 
 import com.amazonaws.services.iot.client.AWSIotMessage;
 import com.amazonaws.services.iot.client.AWSIotQos;
 import com.amazonaws.services.iot.client.AWSIotTopic;
-import de.iotioten.pushserver.connecting.ConnectionHistory;
-import de.iotioten.pushserver.receiving.DataStorage;
-import de.iotioten.pushserver.receiving.DataStorageImpl;
+import de.stacksmashers.pushserver.connecting.ConnectionHistory;
+import de.stacksmashers.pushserver.receiving.DataStorage;
+import de.stacksmashers.pushserver.receiving.DataStorageImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

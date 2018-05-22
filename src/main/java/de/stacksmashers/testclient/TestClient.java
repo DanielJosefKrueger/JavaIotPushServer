@@ -1,4 +1,4 @@
-package de.iotioten.testclient;
+package de.stacksmashers.testclient;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -9,14 +9,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * TestClient for performing HTTP Requests for debugging the REST API

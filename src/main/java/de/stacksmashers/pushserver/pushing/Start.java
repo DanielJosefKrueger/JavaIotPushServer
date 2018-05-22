@@ -1,7 +1,7 @@
-package de.iotioten.pushserver.pushing;
+package de.stacksmashers.pushserver.pushing;
 
-import de.iotioten.pushserver.receiving.SubscriptionService;
-import de.iotioten.pushserver.rest.JettyServerThread;
+import de.stacksmashers.pushserver.receiving.SubscriptionService;
+import de.stacksmashers.pushserver.rest.JettyServerThread;
 import org.apache.logging.log4j.core.config.Configurator;
 
 import java.io.File;

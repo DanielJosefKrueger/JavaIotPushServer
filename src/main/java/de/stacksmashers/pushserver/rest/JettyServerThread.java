@@ -1,7 +1,8 @@
-package de.iotioten.pushserver.rest;
+package de.stacksmashers.pushserver.rest;
 
-import de.iotioten.pushserver.config.Configuration;
-import de.iotioten.pushserver.config.ConfigurationLoader;
+
+import de.stacksmashers.pushserver.config.Configuration;
+import de.stacksmashers.pushserver.config.ConfigurationLoader;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -38,7 +39,7 @@ public class JettyServerThread extends Thread {
         restEasyServlet.setInitParameter("resteasy.servlet.mapping.prefix",
                 APPLICATION_PATH);
         restEasyServlet.setInitParameter("javax.ws.rs.Application",
-                "de.iotioten.pushserver.rest.MessageApplication");
+                "de.stacksmashers.pushserver.rest.MessageApplication");
         context.addServlet(restEasyServlet, CONTEXT_ROOT);
 
 
