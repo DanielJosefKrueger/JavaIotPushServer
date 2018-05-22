@@ -86,7 +86,7 @@ public class RestCallSubscription extends AWSIotTopic {
         try {
             HttpClient httpClient = HttpClientBuilder.create().build();
             //String postURL = configuration.backchannelUrl();
-            String postURL = "localhost:" + configuration.portUIC() + "/backchannel";
+            String postURL = "http://localhost:" + configuration.portUIC() + "/backchannel/";
 
             HttpPost post = new HttpPost(postURL);
             StringEntity input = new StringEntity(entity, APPLICATION_JSON);
