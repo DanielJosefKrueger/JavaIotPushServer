@@ -1,5 +1,7 @@
 package de.stacksmashers.pushserver.pushing;
 
+import de.stacksmashers.pushserver.config.Configuration;
+import de.stacksmashers.pushserver.config.ConfigurationLoader;
 import de.stacksmashers.pushserver.receiving.SubscriptionService;
 import de.stacksmashers.pushserver.rest.JettyServerThread;
 import org.apache.logging.log4j.core.config.Configurator;
@@ -22,8 +24,10 @@ public class Start {
         //start to subscribe on the backchannel topic
         SubscriptionService.get().initiateDataStoreSunscription();
 
+
+        Configuration configuration = new ConfigurationLoader().loadConfig();
         PushService pushService = PushService.get();
-        pushService.push("<id>/status", "Hello World test 1234");
+        pushService.push("status/" + configuration.clientId() , "UAS started.");
         JettyServerThread jettyServerThread = new JettyServerThread();
         jettyServerThread.start();
     }

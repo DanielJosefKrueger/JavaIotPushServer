@@ -13,7 +13,6 @@ public class ConfigurationLoader {
 
     public ConfigurationLoader() {
         String rawPath = new File("config.properties").toURI().getRawPath();
-        System.out.println(rawPath);
         ConfigFactory.setProperty("config", rawPath);
     }
 
