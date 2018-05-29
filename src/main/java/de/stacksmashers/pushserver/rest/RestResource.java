@@ -73,7 +73,6 @@ public class RestResource {
             String result = "Push with payload: " + msg;
             String topic = configuration.pushTopic().replaceAll("\\{serialid}", InternalSetting.getSerialid());
             pushService.push(topic, msg);
-            pushService.push(topic, msg);
             return Response.status(200).entity(result).build();
         }catch(Exception e){
             e.printStackTrace();

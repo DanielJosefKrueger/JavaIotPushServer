@@ -30,6 +30,7 @@ public class RestCallSubscription extends AWSIotTopic {
 
     private static final Logger logger = LogManager.getLogger(RestCallSubscription.class);
     private static  final JsonFactory factory = new JsonFactory();
+    public static final String BACKCHANNEL_PATH = "/backchannel/";
 
     private final ConnectionHistory connectionHistory = new ConnectionHistory();
     private final Configuration configuration;
@@ -86,7 +87,7 @@ public class RestCallSubscription extends AWSIotTopic {
         try {
             HttpClient httpClient = HttpClientBuilder.create().build();
             //String postURL = configuration.backchannelUrl();
-            String postURL = "http://localhost:" + configuration.portUIC() + "/backchannel/";
+            String postURL = "http://localhost:" + configuration.portUIC() + BACKCHANNEL_PATH;
 
             HttpPost post = new HttpPost(postURL);
             StringEntity input = new StringEntity(entity, APPLICATION_JSON);
