@@ -15,7 +15,6 @@ public interface Configuration extends Config {
     @Key("cert")
     String certificate();
 
-
     @DefaultValue("testclientID")
     @Key("clientid")
     String clientId();
@@ -35,7 +34,6 @@ public interface Configuration extends Config {
     @DefaultValue("8080")
     @Key("port_uas")
     int portUAS();
-
 
     @DefaultValue("1")
     @Key("qos")
