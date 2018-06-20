@@ -1,1 +1,1 @@
-"# JavaIotPushServer" 
+The UIC-AWS-ConnectionServer is used to transfer messages via MQTT to AWS. 

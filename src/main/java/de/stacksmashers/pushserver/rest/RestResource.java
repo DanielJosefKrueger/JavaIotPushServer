@@ -6,9 +6,6 @@ import de.stacksmashers.pushserver.config.ConfigurationLoader;
 import de.stacksmashers.pushserver.config.InternalSetting;
 import de.stacksmashers.pushserver.connecting.ConnectionHistory;
 import de.stacksmashers.pushserver.pushing.PushService;
-import de.stacksmashers.pushserver.receiving.DataStorage;
-import de.stacksmashers.pushserver.receiving.DataStorageImpl;
-
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +20,6 @@ import javax.ws.rs.core.Response;
 public class RestResource {
 
     private static final PushService pushService = PushService.get();
-    private static final DataStorage dataStorage = DataStorageImpl.getInstance();
     private static final Logger logger = LogManager.getLogger(RestResource.class);
     private static final ConnectionHistory histy = new ConnectionHistory();
 
@@ -32,36 +28,6 @@ public class RestResource {
 
     RestResource() {
         configuration = new ConfigurationLoader().loadConfig();
-    }
-
-
-    @GET
-    @Path("/back")
-    public Response receiveMessages() {
-        String str = dataStorage.get();
-        if (str != null) {
-            return Response.status(200).entity(str).build();
-        } else {
-            return Response.status(404).build();
-        }
-    }
-
-
-    @GET
-    @Path("/legacy/{param}")
-    public Response get(@PathParam("param") String msg) {
-        try{
-            String result = "GetRequest: " + msg;
-            String topic = configuration.pushTopic().replaceAll("\\{uicid}", InternalSetting.getSerialid());
-            pushService.push(topic, msg);
-            return Response.status(200).entity(result).build();
-        }catch(Exception e){
-            logger.error("An Exception was thrown while processing PUSh Request: " , e);
-            return Response.status(500).entity("An Exception was thrown while processing PUSh Request").build();
-        }
-
-
-
     }
 
 
@@ -78,9 +44,6 @@ public class RestResource {
             e.printStackTrace();
             return Response.status(500).entity("An Exception was thrown while processing PUSh Request").build();
         }
-
-
-
     }
 
 
@@ -94,13 +57,6 @@ public class RestResource {
         return Response.status(200).entity(result).build();
     }
 
-
-    @POST
-    @Path("/config")
-    public Response postConfig(@FormParam("config") String config) {
-        logger.trace("Received change in config: {}", config);
-        return Response.status(200).entity("config changed").build();
-    }
 
     @GET
     @Path("/history")

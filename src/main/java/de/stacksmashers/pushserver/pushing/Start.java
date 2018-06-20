@@ -13,18 +13,11 @@ public class Start {
 
     private static final String CONFIG_FILE_LOGGING = "log4j2.xml";
 
-    //TODO Dependency Injection?
-    //TODO how to
-    //TODO doku
-
-
     public static void main(String[] args) {
         //configure the file for the logging configuration
         configurateLogging();
         //start to subscribe on the backchannel topic
         SubscriptionService.get().initiateDataStoreSunscription();
-
-
         Configuration configuration = new ConfigurationLoader().loadConfig();
         PushService pushService = PushService.get();
         pushService.push("status/" + configuration.clientId() , "UAS started.");
