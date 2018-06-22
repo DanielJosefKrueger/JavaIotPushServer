@@ -46,8 +46,7 @@ public class RestCallSubscription extends AWSIotTopic {
         try {
             final String payload = message.getStringPayload();
             connectionHistory.add(System.currentTimeMillis(), "Received Message on topic: \"" + topic + "\" with payload: \"" + payload + "\"");
-            logger.error("Received Message on topic: {} with payload {}", topic, payload);
-         // String entity = "{\"topic\":\"" + message.getTopic() + "\",\"payload\":\"" + message.getStringPayload() + "\"}";
+            logger.info("Received Message on topic: {} with payload {}", topic, payload);
             String entity = messageToJson(message);
             sendPost(entity);
         } catch (IOException e) {
