@@ -4,5 +4,8 @@
 
 .idea/
 *.iml
-
-
+dependency-reduced-pom.xml
+target/
+*.key
+*.pem
+src/main/webapp/
